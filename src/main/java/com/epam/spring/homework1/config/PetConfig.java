@@ -1,6 +1,9 @@
 package com.epam.spring.homework1.config;
 
+import com.epam.spring.homework1.pet.Animal;
+import com.epam.spring.homework1.pet.Cheetah;
 import com.epam.spring.homework1.pet.Spider;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.*;
 
 @Configuration
@@ -8,5 +11,17 @@ import org.springframework.context.annotation.*;
         excludeFilters = @ComponentScan.Filter(
         type = FilterType.ASSIGNABLE_TYPE, value = Spider.class))
 public class PetConfig {
+
+    @Bean
+    @Primary
+    public Animal cheetahPrimary() {
+        return new Cheetah();
+    }
+
+    @Bean
+    @Qualifier("cheetahQualifier")
+    public Animal cheetahQualifier() {
+        return new Cheetah();
+    }
 
 }
