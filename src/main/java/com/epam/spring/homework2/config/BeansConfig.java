@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Lazy;
 
 @Configuration
 @ComponentScan("com.epam.spring.homework2.beans")
-public class BeansBCDConfig {
+public class BeansConfig {
 
     @Bean
     public BeanD beanD() {
