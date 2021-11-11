@@ -1,11 +1,15 @@
 package com.epam.spring.homework2.beans;
 
+import org.springframework.beans.factory.annotation.Value;
+
 import static com.epam.spring.homework2.constants.ApplicationConstants.DESTROYED;
 import static com.epam.spring.homework2.constants.ApplicationConstants.INITIALIZED;
 
 public class BeanD {
 
+    @Value("${beanD.name}")
     private String name;
+    @Value("${beanD.value}")
     private int value;
 
     public String getName() {
