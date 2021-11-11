@@ -1,16 +1,15 @@
 package com.epam.spring.homework2.config;
 
 import com.epam.spring.homework2.beans.*;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.*;
 
 @Configuration
 @ComponentScan("com.epam.spring.homework2.beans")
+@PropertySource("classpath:application.properties")
 public class BeansConfig {
 
     @Bean
+    @DependsOn({"beanD", "beanB", "beanC"})
     public BeanA beanA() {
         return new BeanA();
     }
