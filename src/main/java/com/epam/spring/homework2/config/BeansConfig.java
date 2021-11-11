@@ -10,9 +10,9 @@ import org.springframework.context.annotation.Lazy;
 @ComponentScan("com.epam.spring.homework2.beans")
 public class BeansConfig {
 
-    @Bean(initMethod = "init", destroyMethod = "destroy")
-    public BeanD beanD() {
-        return new BeanD();
+    @Bean
+    public BeanA beanA() {
+        return new BeanA();
     }
 
     @Bean(initMethod = "init", destroyMethod = "destroy")
@@ -23,6 +23,22 @@ public class BeansConfig {
     @Bean(initMethod = "init", destroyMethod = "destroy")
     public BeanC beanC() {
         return new BeanC();
+    }
+
+    @Bean(initMethod = "init", destroyMethod = "destroy")
+    public BeanD beanD() {
+        return new BeanD();
+    }
+
+    @Bean
+    public BeanE beanE() {
+        return new BeanE();
+    }
+
+    @Bean
+    @Lazy
+    public BeanF beanF() {
+        return new BeanF();
     }
 
 }
