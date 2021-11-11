@@ -10,17 +10,17 @@ import org.springframework.context.annotation.Lazy;
 @ComponentScan("com.epam.spring.homework2.beans")
 public class BeansConfig {
 
-    @Bean
+    @Bean(initMethod = "init", destroyMethod = "destroy")
     public BeanD beanD() {
         return new BeanD();
     }
 
-    @Bean
+    @Bean(initMethod = "init", destroyMethod = "destroy")
     public BeanB beanB() {
         return new BeanB();
     }
 
-    @Bean
+    @Bean(initMethod = "init", destroyMethod = "destroy")
     public BeanC beanC() {
         return new BeanC();
     }
