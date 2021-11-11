@@ -28,13 +28,13 @@ public class BeanA implements InitializingBean, DisposableBean {
 
     @Override
     public void destroy() {
-        System.out.println(this.getClass().getSimpleName() + " " + DESTROYED);
+        System.out.println(this.getClass().getSimpleName() + " call destroy()");
 
     }
 
     @Override
     public void afterPropertiesSet() {
-        System.out.println(this.getClass().getSimpleName() + " " + "after properties set");
+        System.out.println(this.getClass().getSimpleName() + " call afterPropertiesSet()");
     }
 
     @Override
