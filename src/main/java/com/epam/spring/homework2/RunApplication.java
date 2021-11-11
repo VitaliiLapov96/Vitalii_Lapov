@@ -15,6 +15,7 @@ public class RunApplication {
         System.out.println(context.getBean(BeanC.class));
         System.out.println(context.getBean(BeanD.class));
         System.out.println(context.getBean(BeanE.class));
+        System.out.println(context.getBean(BeanF.class));
         context.close();
 
     }
