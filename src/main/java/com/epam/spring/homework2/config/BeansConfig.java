@@ -25,20 +25,4 @@ public class BeansConfig {
         return new BeanC();
     }
 
-    @Bean
-    public BeanA beanA() {
-        return new BeanA();
-    }
-
-    @Bean
-    public BeanE beanE() {
-        return new BeanE();
-    }
-
-    @Bean
-    @Lazy
-    public BeanF beanF() {
-        return new BeanF();
-    }
-
 }
