@@ -36,6 +36,7 @@ public class BeansConfig {
     }
 
     @Bean
+    @Lazy
     public BeanF beanF() {
         return new BeanF();
     }
