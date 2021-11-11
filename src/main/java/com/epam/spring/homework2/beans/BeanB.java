@@ -36,6 +36,10 @@ public class BeanB {
         System.out.println(this.getClass().getSimpleName() + " " + DESTROYED);
     }
 
+    private void otherInit() {
+        System.out.println(this.getClass().getSimpleName() + " " + INITIALIZED + " from otherInit()");
+    }
+
     @Override
     public String toString() {
         return "BeanB{" +
