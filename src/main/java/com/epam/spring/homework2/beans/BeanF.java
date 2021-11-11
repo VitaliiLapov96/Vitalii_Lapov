@@ -1,6 +1,11 @@
 package com.epam.spring.homework2.beans;
 
-public class BeanF {
+import com.epam.spring.homework2.validators.MyValidator;
+
+import static com.epam.spring.homework2.constants.ApplicationConstants.MSG_NAME;
+import static com.epam.spring.homework2.constants.ApplicationConstants.MSG_VALUE;
+
+public class BeanF implements MyValidator {
 
     private String name;
     private int value;
@@ -19,6 +24,14 @@ public class BeanF {
 
     public void setValue(int value) {
         this.value = value;
+    }
+
+    @Override
+    public void validate() {
+        if (name == null)
+            System.err.println(this.getClass().getSimpleName() + " " + MSG_NAME);
+        if (value < 0)
+            System.err.println(this.getClass().getSimpleName() + " " + MSG_VALUE);
     }
 
     @Override

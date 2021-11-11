@@ -1,11 +1,12 @@
 package com.epam.spring.homework2.beans;
 
+import com.epam.spring.homework2.validators.MyValidator;
 import org.springframework.beans.factory.annotation.Value;
 
-import static com.epam.spring.homework2.constants.ApplicationConstants.DESTROYED;
-import static com.epam.spring.homework2.constants.ApplicationConstants.INITIALIZED;
+import static com.epam.spring.homework2.constants.ApplicationConstants.*;
+import static com.epam.spring.homework2.constants.ApplicationConstants.MSG_VALUE;
 
-public class BeanB {
+public class BeanB implements MyValidator {
 
     @Value("${beanB.name}")
     private String name;
@@ -38,6 +39,14 @@ public class BeanB {
 
     private void otherInit() {
         System.out.println(this.getClass().getSimpleName() + " " + INITIALIZED + " from otherInit()");
+    }
+
+    @Override
+    public void validate() {
+        if (name == null)
+            System.err.println(this.getClass().getSimpleName() + " " + MSG_NAME);
+        if (value < 0)
+            System.err.println(this.getClass().getSimpleName() + " " + MSG_VALUE);
     }
 
     @Override
