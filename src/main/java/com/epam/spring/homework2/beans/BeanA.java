@@ -1,6 +1,11 @@
 package com.epam.spring.homework2.beans;
 
-public class BeanA {
+import org.springframework.beans.factory.DisposableBean;
+import org.springframework.beans.factory.InitializingBean;
+
+import static com.epam.spring.homework2.constants.ApplicationConstants.DESTROYED;
+
+public class BeanA implements InitializingBean, DisposableBean {
 
     private String name;
     private int value;
@@ -19,6 +24,17 @@ public class BeanA {
 
     public void setValue(int value) {
         this.value = value;
+    }
+
+    @Override
+    public void destroy() {
+        System.out.println(this.getClass().getSimpleName() + " " + DESTROYED);
+
+    }
+
+    @Override
+    public void afterPropertiesSet() {
+        System.out.println(this.getClass().getSimpleName() + " " + "after properties set");
     }
 
     @Override
