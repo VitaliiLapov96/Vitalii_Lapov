@@ -32,7 +32,7 @@ public class AccountRepositoryImpl implements AccountRepository {
 
     @Override
     public Account updateAccount(int accountId, Account updatedAccount) {
-        boolean accountIsDeleted = listAccounts()
+        boolean accountIsDeleted = accountList
                 .removeIf(account -> account.getAccountId() == accountId);
         if (!accountIsDeleted)
             throw new RuntimeException("Account is not updated");
