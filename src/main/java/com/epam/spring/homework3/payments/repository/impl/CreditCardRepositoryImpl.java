@@ -18,7 +18,6 @@ public class CreditCardRepositoryImpl implements CreditCardRepository {
     public CreditCard createCreditCard(CreditCard creditCard) {
         creditCard.setCreditCardId(++CREDIT_CARD_ID_COUNT);
         creditCard.setDate(LocalDate.now());
-
         creditCardList.add(creditCard);
         return creditCard;
     }

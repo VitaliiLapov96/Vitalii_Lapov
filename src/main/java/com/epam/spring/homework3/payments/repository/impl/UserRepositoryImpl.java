@@ -4,6 +4,7 @@ import com.epam.spring.homework3.payments.model.User;
 import com.epam.spring.homework3.payments.repository.UserRepository;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +17,7 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public User createUser(User user) {
         user.setUserId(++USER_ID_COUNT);
+        user.setDate(LocalDate.now());
         userList.add(user);
         return user;
     }
@@ -35,6 +37,7 @@ public class UserRepositoryImpl implements UserRepository {
             throw new RuntimeException("User is not updated");
 
         updatedUser.setUserId(++USER_ID_COUNT);
+        updatedUser.setDate(LocalDate.now());
         userList.add(updatedUser);
         return updatedUser;
     }
