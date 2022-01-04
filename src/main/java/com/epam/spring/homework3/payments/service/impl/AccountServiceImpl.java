@@ -20,9 +20,9 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public AccountDto createAccount(AccountDto accountDto) {
-        log.info("create account with number {}", accountDto.getNumber());
         Account account = mapAccountDtoToAccount(accountDto);
         account = accountRepository.createAccount(account);
+        log.info("create account with number {}", account.getNumber());
         return mapAccountToAccountDto(account);
     }
 

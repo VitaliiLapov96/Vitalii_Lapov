@@ -20,9 +20,9 @@ public class CreditCardServiceImpl implements CreditCardService {
 
     @Override
     public CreditCardDto createCreditCard(CreditCardDto creditCardDto) {
-        log.info("create credit card with id {}", creditCardDto.getCreditCardId());
         CreditCard creditCard = mapCreditCardDtoToCreditCard(creditCardDto);
         creditCard = creditCardRepository.createCreditCard(creditCard);
+        log.info("create credit card with id {}", creditCard.getCreditCardId());
         return mapCreditCardToCreditCardDto(creditCard);
     }
 

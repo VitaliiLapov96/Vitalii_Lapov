@@ -20,9 +20,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto createUser(UserDto userDto) {
-        log.info("create user with id {}", userDto.getUserId());
         User user = mapUserDtoToUser(userDto);
         user = userRepository.createUser(user);
+        log.info("create user with id {}", user.getUserId());
         return mapUserToUserDto(user);
     }
 

@@ -3,6 +3,7 @@ package com.epam.spring.homework3.payments.controller.dto;
 import lombok.Builder;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Data
@@ -11,8 +12,8 @@ public class AccountDto {
 
     private int accountId;
     private int userId;
-    private int balance;
-    private int creditLimit;
+    private double creditLimit;
+    private double balance;
     private String name;
     private String number;
     private String currency;

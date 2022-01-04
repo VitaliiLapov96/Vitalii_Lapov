@@ -11,8 +11,8 @@ public class Account {
 
     private int accountId;
     private int userId;
-    private int balance;
-    private int creditLimit;
+    private double creditLimit;
+    private double balance;
     private String name;
     private String number;
     private String currency;

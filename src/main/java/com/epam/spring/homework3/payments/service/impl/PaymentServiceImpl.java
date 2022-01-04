@@ -20,9 +20,9 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public PaymentDto createPayment(PaymentDto paymentDto) {
-        log.info("create payment with id {}", paymentDto.getPaymentId());
         Payment payment = mapPaymentDtoToPayment(paymentDto);
         payment = paymentRepository.createPayment(payment);
+        log.info("create payment with id {}", payment.getPaymentId());
         return mapPaymentToPaymentDto(payment);
     }
 
@@ -60,6 +60,7 @@ public class PaymentServiceImpl implements PaymentService {
                 .paymentId(payment.getPaymentId())
                 .accountIdFrom(payment.getAccountIdFrom())
                 .accountIdTo(payment.getAccountIdTo())
+                .amount(payment.getAmount())
                 .number(payment.getNumber())
                 .description(payment.getDescription())
                 .currency(payment.getCurrency())
@@ -72,6 +73,7 @@ public class PaymentServiceImpl implements PaymentService {
                 .paymentId(paymentDto.getPaymentId())
                 .accountIdFrom(paymentDto.getAccountIdFrom())
                 .accountIdTo(paymentDto.getAccountIdTo())
+                .amount(paymentDto.getAmount())
                 .number(paymentDto.getNumber())
                 .description(paymentDto.getDescription())
                 .currency(paymentDto.getCurrency())
