@@ -27,14 +27,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto getUser(int userId) {
+    public UserDto getUser(Long userId) {
         log.info("get user by id {}", userId);
         User user = userRepository.getUser(userId);
         return mapUserToUserDto(user);
     }
 
     @Override
-    public UserDto updateUser(int userId, UserDto updatedUserDto) {
+    public UserDto updateUser(Long userId, UserDto updatedUserDto) {
         log.info("update user by id {}", userId);
         User updatedUser = mapUserDtoToUser(updatedUserDto);
         updatedUser = userRepository.updateUser(userId, updatedUser);
@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteUser(int userId) {
+    public void deleteUser(Long userId) {
         log.info("delete user by id {}", userId);
         userRepository.deleteUser(userId);
     }
@@ -59,11 +59,12 @@ public class UserServiceImpl implements UserService {
     private UserDto mapUserToUserDto(User user) {
         return UserDto.builder()
                 .userId(user.getUserId())
-                .isAdmin(user.isAdmin())
+                .isAdmin(user.getIsAdmin())
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
                 .email(user.getEmail())
                 .password(user.getPassword())
+                .repeatPassword(user.getRepeatPassword())
                 .date(user.getDate())
                 .build();
     }
@@ -71,11 +72,12 @@ public class UserServiceImpl implements UserService {
     private User mapUserDtoToUser(UserDto userDto) {
         return User.builder()
                 .userId(userDto.getUserId())
-                .isAdmin(userDto.isAdmin())
+                .isAdmin(userDto.getIsAdmin())
                 .firstName(userDto.getFirstName())
                 .lastName(userDto.getLastName())
                 .email(userDto.getEmail())
                 .password(userDto.getPassword())
+                .repeatPassword(userDto.getRepeatPassword())
                 .date(userDto.getDate())
                 .build();
     }

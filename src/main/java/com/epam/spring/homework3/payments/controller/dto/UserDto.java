@@ -9,12 +9,14 @@ import java.time.LocalDate;
 @Builder
 public class UserDto {
 
-    private int userId;
-    private boolean isAdmin;
+    private Long userId;
+    private Boolean isAdmin;
     private String firstName;
     private String lastName;
     private String email;
     private String password;
+    private String repeatPassword;
     private LocalDate date;
+
 
 }

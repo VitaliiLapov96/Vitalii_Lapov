@@ -23,19 +23,19 @@ public class CreditCardController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/credit-card/{creditCardId}")
-    public CreditCardDto getCreditCard(@PathVariable int creditCardId) {
+    public CreditCardDto getCreditCard(@PathVariable Long creditCardId) {
         return creditCardService.getCreditCard(creditCardId);
     }
 
     @ResponseStatus(HttpStatus.OK)
     @PutMapping("/credit-card/{creditCardId}")
-    public CreditCardDto updateCreditCard(@PathVariable int creditCardId,
+    public CreditCardDto updateCreditCard(@PathVariable Long creditCardId,
                                        @RequestBody CreditCardDto creditCardDto) {
         return creditCardService.updateCreditCard(creditCardId, creditCardDto);
     }
 
     @DeleteMapping("/credit-card/{creditCardId}")
-    public ResponseEntity<Void> deleteCreditCard(@PathVariable int creditCardId) {
+    public ResponseEntity<Void> deleteCreditCard(@PathVariable Long creditCardId) {
         creditCardService.deleteCreditCard(creditCardId);
         return ResponseEntity.noContent().build();
     }

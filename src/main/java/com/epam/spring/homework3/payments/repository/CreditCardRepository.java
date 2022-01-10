@@ -8,9 +8,9 @@ import java.util.List;
 public interface CreditCardRepository {
 
     CreditCard createCreditCard(CreditCard creditCard);
-    CreditCard getCreditCard(int creditCardId);
-    CreditCard updateCreditCard(int creditCardId, CreditCard updatedCreditCard);
-    void deleteCreditCard(int creditCardId);
+    CreditCard getCreditCard(Long creditCardId);
+    CreditCard updateCreditCard(Long creditCardId, CreditCard updatedCreditCard);
+    void deleteCreditCard(Long creditCardId);
     List<CreditCard> listCreditCards();
 
 }

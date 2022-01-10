@@ -7,12 +7,13 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Component
 public class AccountRepositoryImpl implements AccountRepository {
 
     private final List<Account> accountList = new ArrayList<>();
-    private static int ACCOUNT_COUNT = 0;
+    private static Long ACCOUNT_COUNT = 0L;
 
     @Override
     public Account createAccount(Account account) {
@@ -23,29 +24,33 @@ public class AccountRepositoryImpl implements AccountRepository {
     }
 
     @Override
-    public Account getAccount(int accountId) {
+    public Account getAccount(Long accountId) {
         return accountList.stream()
-                .filter(account -> account.getAccountId() == accountId)
+                .filter(account -> Objects.equals(account.getAccountId(), accountId))
                 .findAny()
                 .orElseThrow(() -> new RuntimeException("Account is not found"));
     }
 
     @Override
-    public Account updateAccount(int accountId, Account updatedAccount) {
-        boolean accountIsDeleted = accountList
-                .removeIf(account -> account.getAccountId() == accountId);
-        if (!accountIsDeleted)
-            throw new RuntimeException("Account is not updated");
+    public Account updateAccount(Long accountId, Account updatedAccount) {
+        Account account = accountList.stream()
+                .filter(nextAccount -> Objects.equals(nextAccount.getAccountId(), accountId))
+                .findAny()
+                .orElseThrow(() -> new RuntimeException("Account is not updated"));
 
-        updatedAccount.setAccountId(++ACCOUNT_COUNT);
-        updatedAccount.setDate(LocalDate.now());
-        accountList.add(updatedAccount);
-        return updatedAccount;
+        account.setUserId(updatedAccount.getUserId());
+        account.setCreditLimit(updatedAccount.getCreditLimit());
+        account.setBalance(updatedAccount.getBalance());
+        account.setName(updatedAccount.getName());
+        account.setNumber(updatedAccount.getNumber());
+        account.setCurrency(updatedAccount.getCurrency());
+        account.setDate(updatedAccount.getDate());
+        return account;
     }
 
     @Override
-    public void deleteAccount(int accountId) {
-        accountList.removeIf(account -> account.getAccountId() == accountId);
+    public void deleteAccount(Long accountId) {
+        accountList.removeIf(account -> Objects.equals(account.getAccountId(), accountId));
     }
 
     @Override

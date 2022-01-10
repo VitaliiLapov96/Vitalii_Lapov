@@ -7,12 +7,13 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Component
 public class PaymentRepositoryImpl implements PaymentRepository {
 
     private final List<Payment> paymentList = new ArrayList<>();
-    private static int PAYMENT_ID_COUNT = 0;
+    private static Long PAYMENT_ID_COUNT = 0L;
 
     @Override
     public Payment createPayment(Payment payment) {
@@ -23,29 +24,33 @@ public class PaymentRepositoryImpl implements PaymentRepository {
     }
 
     @Override
-    public Payment getPayment(int paymentId) {
+    public Payment getPayment(Long paymentId) {
         return paymentList.stream()
-                .filter(payment -> payment.getPaymentId() == paymentId)
+                .filter(payment -> Objects.equals(payment.getPaymentId(), paymentId))
                 .findAny()
                 .orElseThrow(() -> new RuntimeException("Payment is not found"));
     }
 
     @Override
-    public Payment updatePayment(int paymentId, Payment updatedPayment) {
-        boolean paymentIsDeleted = paymentList
-                .removeIf(payment -> payment.getPaymentId() == paymentId);
-        if (!paymentIsDeleted)
-            throw new RuntimeException("Payment is not updated");
+    public Payment updatePayment(Long paymentId, Payment updatedPayment) {
+        Payment payment = paymentList.stream()
+                .filter(nextPayment -> Objects.equals(nextPayment.getPaymentId(), paymentId))
+                .findAny()
+                .orElseThrow(() -> new RuntimeException("Payment is not updated"));
 
-        updatedPayment.setPaymentId(++PAYMENT_ID_COUNT);
-        updatedPayment.setDate(LocalDate.now());
-        paymentList.add(updatedPayment);
-        return updatedPayment;
+        payment.setAccountIdFrom(updatedPayment.getAccountIdFrom());
+        payment.setAccountIdTo(updatedPayment.getAccountIdTo());
+        payment.setAmount(updatedPayment.getAmount());
+        payment.setNumber(updatedPayment.getNumber());
+        payment.setDescription(updatedPayment.getDescription());
+        payment.setCurrency(updatedPayment.getCurrency());
+        payment.setDate(updatedPayment.getDate());
+        return payment;
     }
 
     @Override
-    public void deletePayment(int paymentId) {
-        paymentList.removeIf(payment -> payment.getPaymentId() == paymentId);
+    public void deletePayment(Long paymentId) {
+        paymentList.removeIf(payment -> Objects.equals(payment.getPaymentId(), paymentId));
     }
 
     @Override

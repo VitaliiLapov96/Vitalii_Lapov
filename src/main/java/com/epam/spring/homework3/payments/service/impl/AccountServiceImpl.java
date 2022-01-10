@@ -27,14 +27,14 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public AccountDto getAccount(int accountId) {
+    public AccountDto getAccount(Long accountId) {
         log.info("get account by id {}", accountId);
         Account account = accountRepository.getAccount(accountId);
         return mapAccountToAccountDto(account);
     }
 
     @Override
-    public AccountDto updateAccount(int accountId, AccountDto updatedAccountDto) {
+    public AccountDto updateAccount(Long accountId, AccountDto updatedAccountDto) {
         log.info("update account by id {}", accountId);
         Account updatedAccount = mapAccountDtoToAccount(updatedAccountDto);
         updatedAccount = accountRepository.updateAccount(accountId, updatedAccount);
@@ -42,7 +42,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public void deleteAccount(int accountId) {
+    public void deleteAccount(Long accountId) {
         log.info("delete account by id {}", accountId);
         accountRepository.deleteAccount(accountId);
     }

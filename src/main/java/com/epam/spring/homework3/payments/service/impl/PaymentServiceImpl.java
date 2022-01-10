@@ -27,14 +27,14 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
-    public PaymentDto getPayment(int paymentId) {
+    public PaymentDto getPayment(Long paymentId) {
         log.info("get payment with id {}", paymentId);
         Payment payment = paymentRepository.getPayment(paymentId);
         return mapPaymentToPaymentDto(payment);
     }
 
     @Override
-    public PaymentDto updatePayment(int paymentId, PaymentDto updatedPaymentDto) {
+    public PaymentDto updatePayment(Long paymentId, PaymentDto updatedPaymentDto) {
         log.info("update payment by id {}", paymentId);
         Payment updatedPayment = mapPaymentDtoToPayment(updatedPaymentDto);
         updatedPayment = paymentRepository.updatePayment(paymentId, updatedPayment);
@@ -42,7 +42,7 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
-    public void deletePayment(int paymentId) {
+    public void deletePayment(Long paymentId) {
         log.info("delete payment by id {}", paymentId);
         paymentRepository.deletePayment(paymentId);
     }

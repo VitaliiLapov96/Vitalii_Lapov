@@ -24,18 +24,18 @@ public class PaymentController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/payment/{paymentId}")
-    public PaymentDto getPayment(@PathVariable int paymentId) {
+    public PaymentDto getPayment(@PathVariable Long paymentId) {
         return paymentService.getPayment(paymentId);
     }
 
     @ResponseStatus(HttpStatus.OK)
     @PutMapping("/payment/{paymentId}")
-    public PaymentDto updatePayment(@PathVariable int paymentId, @RequestBody PaymentDto paymentDto) {
+    public PaymentDto updatePayment(@PathVariable Long paymentId, @RequestBody PaymentDto paymentDto) {
         return paymentService.updatePayment(paymentId, paymentDto);
     }
 
     @DeleteMapping("/payment/{paymentId}")
-    public ResponseEntity<Void> deletePayment(@PathVariable int paymentId) {
+    public ResponseEntity<Void> deletePayment(@PathVariable Long paymentId) {
         paymentService.deletePayment(paymentId);
         return ResponseEntity.noContent().build();
     }

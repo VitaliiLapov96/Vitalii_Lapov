@@ -9,10 +9,10 @@ import java.time.LocalDate;
 @Builder
 public class CreditCard {
 
-    private int creditCardId;
-    private int accountId;
-    private int cvvCode;
-    private int pinCode;
+    private Long creditCardId;
+    private Long accountId;
+    private Long cvvCode;
+    private Long pinCode;
     private String number;
     private String paymentSystem;
     private LocalDate date;

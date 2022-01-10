@@ -7,12 +7,13 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Component
 public class UserRepositoryImpl implements UserRepository {
 
     private final List<User> userList = new ArrayList<>();
-    private static int USER_ID_COUNT = 0;
+    private static Long USER_ID_COUNT = 0L;
 
     @Override
     public User createUser(User user) {
@@ -23,28 +24,33 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public User getUser(int userId) {
+    public User getUser(Long userId) {
         return userList.stream()
-                .filter(user -> user.getUserId() == userId)
+                .filter(user -> Objects.equals(user.getUserId(), userId))
                 .findAny()
                 .orElseThrow(() -> new RuntimeException("User is not found"));
     }
 
     @Override
-    public User updateUser(int userId, User updatedUser) {
-        boolean userIsDeleted = userList.removeIf(user -> user.getUserId() == userId);
-        if (!userIsDeleted)
-            throw new RuntimeException("User is not updated");
+    public User updateUser(Long userId, User updatedUser) {
+        User user = userList.stream()
+                .filter(nextUser -> Objects.equals(nextUser.getUserId(), userId))
+                .findAny()
+                .orElseThrow(() -> new RuntimeException("User is not updated"));
 
-        updatedUser.setUserId(++USER_ID_COUNT);
-        updatedUser.setDate(LocalDate.now());
-        userList.add(updatedUser);
-        return updatedUser;
+        user.setFirstName(updatedUser.getFirstName());
+        user.setLastName(updatedUser.getLastName());
+        user.setEmail(updatedUser.getEmail());
+        user.setPassword(updatedUser.getPassword());
+        user.setRepeatPassword(updatedUser.getRepeatPassword());
+        user.setDate(updatedUser.getDate());
+        user.setIsAdmin(updatedUser.getIsAdmin());
+        return user;
     }
 
     @Override
-    public void deleteUser(int userId) {
-        userList.removeIf(user -> user.getUserId() == userId);
+    public void deleteUser(Long userId) {
+        userList.removeIf(user -> Objects.equals(user.getUserId(), userId));
     }
 
     @Override

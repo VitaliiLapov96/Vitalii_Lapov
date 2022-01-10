@@ -7,9 +7,9 @@ import java.util.List;
 public interface AccountRepository {
 
     Account createAccount(Account account);
-    Account getAccount(int accountId);
-    Account updateAccount(int accountId, Account updatedAccount);
-    void deleteAccount(int accountId);
+    Account getAccount(Long accountId);
+    Account updateAccount(Long accountId, Account updatedAccount);
+    void deleteAccount(Long accountId);
     List<Account> listAccounts();
 
 }

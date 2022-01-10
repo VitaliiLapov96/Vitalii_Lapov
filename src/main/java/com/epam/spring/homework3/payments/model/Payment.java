@@ -9,10 +9,10 @@ import java.time.LocalDate;
 @Builder
 public class Payment {
 
-    private int paymentId;
-    private int accountIdFrom;
-    private int accountIdTo;
-    private double amount;
+    private Long paymentId;
+    private Long accountIdFrom;
+    private Long accountIdTo;
+    private Double amount;
     private String number;
     private String description;
     private String currency;

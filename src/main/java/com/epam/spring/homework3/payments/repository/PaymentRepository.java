@@ -7,9 +7,9 @@ import java.util.List;
 public interface PaymentRepository {
 
     Payment createPayment(Payment payment);
-    Payment getPayment(int paymentId);
-    Payment updatePayment(int paymentId, Payment updatedPayment);
-    void deletePayment(int paymentId);
+    Payment getPayment(Long paymentId);
+    Payment updatePayment(Long paymentId, Payment updatedPayment);
+    void deletePayment(Long paymentId);
     List<Payment> listPayments();
 
 }

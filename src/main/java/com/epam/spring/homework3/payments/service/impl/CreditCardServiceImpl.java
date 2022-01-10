@@ -27,14 +27,14 @@ public class CreditCardServiceImpl implements CreditCardService {
     }
 
     @Override
-    public CreditCardDto getCreditCard(int creditCardId) {
+    public CreditCardDto getCreditCard(Long creditCardId) {
         log.info("get credit card by id {}", creditCardId);
         CreditCard creditCard = creditCardRepository.getCreditCard(creditCardId);
         return mapCreditCardToCreditCardDto(creditCard);
     }
 
     @Override
-    public CreditCardDto updateCreditCard(int creditCardId, CreditCardDto updatedCreditCardDto) {
+    public CreditCardDto updateCreditCard(Long creditCardId, CreditCardDto updatedCreditCardDto) {
         log.info("update credit card by id {}", creditCardId);
         CreditCard updatedCreditCard = mapCreditCardDtoToCreditCard(updatedCreditCardDto);
         updatedCreditCard = creditCardRepository.updateCreditCard(creditCardId, updatedCreditCard);
@@ -42,7 +42,7 @@ public class CreditCardServiceImpl implements CreditCardService {
     }
 
     @Override
-    public void deleteCreditCard(int creditCardId) {
+    public void deleteCreditCard(Long creditCardId) {
         log.info("delete credit card by id {}", creditCardId);
         creditCardRepository.deleteCreditCard(creditCardId);
     }

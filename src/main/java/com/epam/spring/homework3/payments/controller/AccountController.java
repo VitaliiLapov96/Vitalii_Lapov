@@ -23,18 +23,18 @@ public class AccountController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/account/{accountId}")
-    public AccountDto getAccount(@PathVariable int accountId) {
+    public AccountDto getAccount(@PathVariable Long accountId) {
         return accountService.getAccount(accountId);
     }
 
     @ResponseStatus(HttpStatus.OK)
     @PutMapping("/account/{accountId}")
-    public AccountDto updateAccount(@PathVariable int accountId, @RequestBody AccountDto updatedAccountDto) {
+    public AccountDto updateAccount(@PathVariable Long accountId, @RequestBody AccountDto updatedAccountDto) {
         return accountService.updateAccount(accountId, updatedAccountDto);
     }
 
     @DeleteMapping("/account/{accountId}")
-    public ResponseEntity<Void> deleteAccount(@PathVariable int accountId) {
+    public ResponseEntity<Void> deleteAccount(@PathVariable Long accountId) {
         accountService.deleteAccount(accountId);
         return ResponseEntity.noContent().build();
     }
