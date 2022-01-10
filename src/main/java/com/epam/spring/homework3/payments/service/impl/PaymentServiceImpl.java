@@ -4,6 +4,7 @@ import com.epam.spring.homework3.payments.controller.dto.PaymentDto;
 import com.epam.spring.homework3.payments.model.Payment;
 import com.epam.spring.homework3.payments.repository.PaymentRepository;
 import com.epam.spring.homework3.payments.service.PaymentService;
+import com.epam.spring.homework3.payments.service.mapper.PaymentMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -20,25 +21,25 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public PaymentDto createPayment(PaymentDto paymentDto) {
-        Payment payment = mapPaymentDtoToPayment(paymentDto);
+        Payment payment = PaymentMapper.INSTANCE.mapPaymentDtoToPayment(paymentDto);
         payment = paymentRepository.createPayment(payment);
         log.info("create payment with id {}", payment.getPaymentId());
-        return mapPaymentToPaymentDto(payment);
+        return PaymentMapper.INSTANCE.mapPaymentToPaymentDto(payment);
     }
 
     @Override
     public PaymentDto getPayment(Long paymentId) {
         log.info("get payment with id {}", paymentId);
         Payment payment = paymentRepository.getPayment(paymentId);
-        return mapPaymentToPaymentDto(payment);
+        return PaymentMapper.INSTANCE.mapPaymentToPaymentDto(payment);
     }
 
     @Override
     public PaymentDto updatePayment(Long paymentId, PaymentDto updatedPaymentDto) {
         log.info("update payment by id {}", paymentId);
-        Payment updatedPayment = mapPaymentDtoToPayment(updatedPaymentDto);
+        Payment updatedPayment = PaymentMapper.INSTANCE.mapPaymentDtoToPayment(updatedPaymentDto);
         updatedPayment = paymentRepository.updatePayment(paymentId, updatedPayment);
-        return mapPaymentToPaymentDto(updatedPayment);
+        return PaymentMapper.INSTANCE.mapPaymentToPaymentDto(updatedPayment);
     }
 
     @Override
@@ -51,34 +52,8 @@ public class PaymentServiceImpl implements PaymentService {
     public List<PaymentDto> listPayments() {
         log.info("get all payments");
         return paymentRepository.listPayments().stream()
-                .map(this::mapPaymentToPaymentDto)
+                .map(PaymentMapper.INSTANCE::mapPaymentToPaymentDto)
                 .collect(Collectors.toList());
-    }
-
-    private PaymentDto mapPaymentToPaymentDto(Payment payment) {
-        return PaymentDto.builder()
-                .paymentId(payment.getPaymentId())
-                .accountIdFrom(payment.getAccountIdFrom())
-                .accountIdTo(payment.getAccountIdTo())
-                .amount(payment.getAmount())
-                .number(payment.getNumber())
-                .description(payment.getDescription())
-                .currency(payment.getCurrency())
-                .date(payment.getDate())
-                .build();
-    }
-
-    private Payment mapPaymentDtoToPayment(PaymentDto paymentDto) {
-        return Payment.builder()
-                .paymentId(paymentDto.getPaymentId())
-                .accountIdFrom(paymentDto.getAccountIdFrom())
-                .accountIdTo(paymentDto.getAccountIdTo())
-                .amount(paymentDto.getAmount())
-                .number(paymentDto.getNumber())
-                .description(paymentDto.getDescription())
-                .currency(paymentDto.getCurrency())
-                .date(paymentDto.getDate())
-                .build();
     }
 
 }

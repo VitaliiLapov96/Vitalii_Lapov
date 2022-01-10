@@ -4,6 +4,7 @@ import com.epam.spring.homework3.payments.controller.dto.AccountDto;
 import com.epam.spring.homework3.payments.model.Account;
 import com.epam.spring.homework3.payments.repository.AccountRepository;
 import com.epam.spring.homework3.payments.service.AccountService;
+import com.epam.spring.homework3.payments.service.mapper.AccountMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -20,25 +21,25 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public AccountDto createAccount(AccountDto accountDto) {
-        Account account = mapAccountDtoToAccount(accountDto);
+        Account account = AccountMapper.INSTANCE.mapAccountDtoToAccount(accountDto);
         account = accountRepository.createAccount(account);
         log.info("create account with number {}", account.getNumber());
-        return mapAccountToAccountDto(account);
+        return AccountMapper.INSTANCE.mapAccountToAccountDto(account);
     }
 
     @Override
     public AccountDto getAccount(Long accountId) {
         log.info("get account by id {}", accountId);
         Account account = accountRepository.getAccount(accountId);
-        return mapAccountToAccountDto(account);
+        return AccountMapper.INSTANCE.mapAccountToAccountDto(account);
     }
 
     @Override
     public AccountDto updateAccount(Long accountId, AccountDto updatedAccountDto) {
         log.info("update account by id {}", accountId);
-        Account updatedAccount = mapAccountDtoToAccount(updatedAccountDto);
+        Account updatedAccount = AccountMapper.INSTANCE.mapAccountDtoToAccount(updatedAccountDto);
         updatedAccount = accountRepository.updateAccount(accountId, updatedAccount);
-        return mapAccountToAccountDto(updatedAccount);
+        return AccountMapper.INSTANCE.mapAccountToAccountDto(updatedAccount);
     }
 
     @Override
@@ -51,34 +52,8 @@ public class AccountServiceImpl implements AccountService {
     public List<AccountDto> listAccounts() {
         log.info("get all accounts");
         return accountRepository.listAccounts().stream()
-                .map(this::mapAccountToAccountDto)
+                .map(AccountMapper.INSTANCE::mapAccountToAccountDto)
                 .collect(Collectors.toList());
-    }
-
-    private AccountDto mapAccountToAccountDto(Account account) {
-        return AccountDto.builder()
-                .accountId(account.getAccountId())
-                .userId(account.getUserId())
-                .balance(account.getBalance())
-                .creditLimit(account.getCreditLimit())
-                .name(account.getName())
-                .number(account.getNumber())
-                .currency(account.getCurrency())
-                .date(account.getDate())
-                .build();
-    }
-
-    private Account mapAccountDtoToAccount(AccountDto accountDto) {
-        return Account.builder()
-                .accountId(accountDto.getAccountId())
-                .userId(accountDto.getUserId())
-                .balance(accountDto.getBalance())
-                .creditLimit(accountDto.getCreditLimit())
-                .name(accountDto.getName())
-                .number(accountDto.getNumber())
-                .currency(accountDto.getCurrency())
-                .date(accountDto.getDate())
-                .build();
     }
 
 }

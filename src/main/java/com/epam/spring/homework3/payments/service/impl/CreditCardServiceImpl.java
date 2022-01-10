@@ -4,6 +4,7 @@ import com.epam.spring.homework3.payments.controller.dto.CreditCardDto;
 import com.epam.spring.homework3.payments.model.CreditCard;
 import com.epam.spring.homework3.payments.repository.CreditCardRepository;
 import com.epam.spring.homework3.payments.service.CreditCardService;
+import com.epam.spring.homework3.payments.service.mapper.CreditCardMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -20,25 +21,25 @@ public class CreditCardServiceImpl implements CreditCardService {
 
     @Override
     public CreditCardDto createCreditCard(CreditCardDto creditCardDto) {
-        CreditCard creditCard = mapCreditCardDtoToCreditCard(creditCardDto);
+        CreditCard creditCard = CreditCardMapper.INSTANCE.mapCreditCardDtoToCreditCard(creditCardDto);
         creditCard = creditCardRepository.createCreditCard(creditCard);
         log.info("create credit card with id {}", creditCard.getCreditCardId());
-        return mapCreditCardToCreditCardDto(creditCard);
+        return CreditCardMapper.INSTANCE.mapCreditCardToCreditCardDto(creditCard);
     }
 
     @Override
     public CreditCardDto getCreditCard(Long creditCardId) {
         log.info("get credit card by id {}", creditCardId);
         CreditCard creditCard = creditCardRepository.getCreditCard(creditCardId);
-        return mapCreditCardToCreditCardDto(creditCard);
+        return CreditCardMapper.INSTANCE.mapCreditCardToCreditCardDto(creditCard);
     }
 
     @Override
     public CreditCardDto updateCreditCard(Long creditCardId, CreditCardDto updatedCreditCardDto) {
         log.info("update credit card by id {}", creditCardId);
-        CreditCard updatedCreditCard = mapCreditCardDtoToCreditCard(updatedCreditCardDto);
+        CreditCard updatedCreditCard = CreditCardMapper.INSTANCE.mapCreditCardDtoToCreditCard(updatedCreditCardDto);
         updatedCreditCard = creditCardRepository.updateCreditCard(creditCardId, updatedCreditCard);
-        return mapCreditCardToCreditCardDto(updatedCreditCard);
+        return CreditCardMapper.INSTANCE.mapCreditCardToCreditCardDto(updatedCreditCard);
     }
 
     @Override
@@ -51,32 +52,8 @@ public class CreditCardServiceImpl implements CreditCardService {
     public List<CreditCardDto> listCreditCards() {
         log.info("get all credit cards");
         return creditCardRepository.listCreditCards().stream()
-                .map(this::mapCreditCardToCreditCardDto)
+                .map(CreditCardMapper.INSTANCE::mapCreditCardToCreditCardDto)
                 .collect(Collectors.toList());
-    }
-
-    private CreditCardDto mapCreditCardToCreditCardDto(CreditCard creditCard) {
-        return CreditCardDto.builder()
-                .creditCardId(creditCard.getCreditCardId())
-                .accountId(creditCard.getAccountId())
-                .cvvCode(creditCard.getCvvCode())
-                .pinCode(creditCard.getPinCode())
-                .number(creditCard.getNumber())
-                .paymentSystem(creditCard.getPaymentSystem())
-                .date(creditCard.getDate())
-                .build();
-    }
-
-    private CreditCard mapCreditCardDtoToCreditCard(CreditCardDto creditCardDto) {
-        return CreditCard.builder()
-                .creditCardId(creditCardDto.getCreditCardId())
-                .accountId(creditCardDto.getAccountId())
-                .cvvCode(creditCardDto.getCvvCode())
-                .pinCode(creditCardDto.getPinCode())
-                .number(creditCardDto.getNumber())
-                .paymentSystem(creditCardDto.getPaymentSystem())
-                .date(creditCardDto.getDate())
-                .build();
     }
 
 }
