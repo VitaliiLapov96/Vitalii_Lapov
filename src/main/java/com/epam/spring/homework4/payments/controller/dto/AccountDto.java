@@ -13,7 +13,7 @@ public class AccountDto {
 
     private Long accountId;
 
-    @NotBlank
+    @NotNull
     @Positive
     private Long userId;
 
