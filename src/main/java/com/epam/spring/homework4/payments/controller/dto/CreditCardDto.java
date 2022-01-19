@@ -13,7 +13,7 @@ public class CreditCardDto {
 
     private Long creditCardId;
 
-    @NotBlank
+    @NotNull
     @Positive
     private Long accountId;
 
