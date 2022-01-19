@@ -15,7 +15,6 @@ import java.time.LocalDate;
 @SamePasswords
 public class UserDto {
 
-    @NotBlank
     private Long userId;
 
     private Boolean isAdmin;
