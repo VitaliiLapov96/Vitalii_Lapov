@@ -1,24 +1,12 @@
 pipeline {
-    agent any
+    agent 'HW_6'
     
     stages {
-        stage('Build') {
+        stage('Build/Test') {
             steps {
-                echo "Start building project..."
-                sh 'mvn -B -DskipTests clean package'
-                echo "Finish building project..."
-            }
-        }
-        stage('Test') { 
-            steps {
-                echo "Start testing..."  
-                sh 'mvn test'
-                echo "Finish testing..."
-            }
-            post {
-                always {
-                    junit 'target/surefire-reports/*.xml' 
-                }
+                echo "Start building/testing project..."
+                sh 'mvn clean package'
+                echo "Finish building/testing project..."
             }
         }
         stage('Deploy') {
