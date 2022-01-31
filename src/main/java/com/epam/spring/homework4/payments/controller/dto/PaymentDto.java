@@ -13,11 +13,11 @@ public class PaymentDto {
 
     private Long paymentId;
 
-    @NotBlank
+    @NotNull
     @Positive
     private Long accountIdFrom;
 
-    @NotBlank
+    @NotNull
     @Positive
     private Long accountIdTo;
 

@@ -13,16 +13,16 @@ public class CreditCardDto {
 
     private Long creditCardId;
 
-    @NotBlank
+    @NotNull
     @Positive
     private Long accountId;
 
-    @NotBlank(message = "{credit_card.wrong_cvv}")
+    @NotNull(message = "{credit_card.wrong_cvv}")
     @Min(100)
     @Max(999)
     private Long cvvCode;
 
-    @NotBlank(message = "{credit_card.wrong_pin}")
+    @NotNull(message = "{credit_card.wrong_pin}")
     @Min(1000)
     @Max(9999)
     private Long pinCode;
